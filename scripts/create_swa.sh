@@ -1,4 +1,20 @@
-source ../.env/deploy.env
+#!/bin/bash
+
+# Get the directory of the script
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+
+# Construct the path to the file to be sourced
+SOURCE_FILE="$SCRIPT_DIR/../.env/deploy.env"
+
+# Check if the file exists before sourcing
+if [ -f "$SOURCE_FILE" ]; then
+  # Source the file
+  source "$SOURCE_FILE"
+else
+  echo "Error: File not found: $SOURCE_FILE"
+  exit 1
+fi
+
 
 ## Pre-requisites
 # Ensure you have the Azure CLI installed and are logged in to your Azure account.
@@ -24,3 +40,10 @@ az group create \
     --name $MY_STATIC_WEB_APP_NAME \
     --resource-group $MY_RESOURCE_GROUP_NAME \
     --location $REGION
+
+## TODO:
+# Add logging to the script
+# Add error handling to the script
+# Print the values of the variables used in the script
+# Capture the output of the Azure CLI commands and print them
+# Extract the URL of the Static Web App from the output and print it
